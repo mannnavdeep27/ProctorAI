@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ exam.title }} - ProctorAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container" style="max-width: 800px; margin-top: 40px;">
+        <h2>{{ exam.title }}</h2>
+        <form method="POST">
+            {% for q in questions %}
+                <div class="card" style="margin-bottom: 20px; max-width: 100%;">
+                    <p><b>Q{{ loop.index }}: {{ q.question_text }}</b></p>
+                    <label><input type="radio" name="q_{{ q.id }}" value="A" required> {{ q.option_a }}</label><br>
+                    <label><input type="radio" name="q_{{ q.id }}" value="B"> {{ q.option_b }}</label><br>
+                    <label><input type="radio" name="q_{{ q.id }}" value="C"> {{ q.option_c }}</label><br>
+                    <label><input type="radio" name="q_{{ q.id }}" value="D"> {{ q.option_d }}</label>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-block" onclick="return confirm('Are you sure you want to submit?');">Submit Exam</button>
+        </form>
+    </div>
+</body>
+</html>

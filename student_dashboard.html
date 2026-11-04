@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard - ProctorAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <h2>Dashboard - {{ session['name'] }} ({{ session['branch'] }})</h2>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </nav>
+    <div class="container main-content">
+        <h3>Available Exams for {{ session['branch'] }}</h3>
+        <div class="exam-grid">
+            {% if exams %}
+                {% for exam in exams %}
+                    <div class="exam-card">
+                        <h4>{{ exam.title }}</h4>
+                        <p>Duration: {{ exam.duration_minutes }} Minutes</p>
+                        {% if exam.id in attempted %}
+                            <span class="btn btn-secondary" style="background:#E5E7EB; color:#374151; cursor:not-allowed;">Submitted</span>
+                        {% else %}
+                            <a href="/exam/{{ exam.unique_link }}" class="btn btn-primary">Start Exam</a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No active exams available for your branch currently.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

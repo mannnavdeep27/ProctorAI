@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registered Students - ProctorAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <h2>Registered Students Records</h2>
+        <a href="/admin/dashboard" class="btn btn-secondary">Dashboard</a>
+    </nav>
+    <div class="container main-content">
+        <form method="GET" style="margin-bottom:20px;">
+            <label>Filter by Branch: </label>
+            <select name="branch" onchange="this.form.submit()" style="padding:6px; border-radius:4px;">
+                <option value="">All Branches</option>
+                {% for b in branches %}
+                    <option value="{{ b }}" {% if selected_branch == b %}selected{% endif %}>{{ b }}</option>
+                {% endfor %}
+            </select>
+        </form>
+        <table style="width:100%; border-collapse: collapse; background:white; border-radius:8px; overflow:hidden;">
+            <tr style="background:#F3F4F6; text-align:left;"><th style="padding:12px;">Roll No</th><th>Name</th><th>Email</th><th>Branch</th><th>Year</th></tr>
+            {% for s in students %}
+                <tr style="border-bottom:1px solid #E5E7EB;">
+                    <td style="padding:12px;">{{ s.roll_no }}</td>
+                    <td>{{ s.name }}</td>
+                    <td>{{ s.email }}</td>
+                    <td>{{ s.branch }}</td>
+                    <td>{{ s.year }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Exam - ProctorAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .question-block {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 800px; margin-top: 40px; margin-bottom: 40px;">
+        <div class="card wide-card" style="max-width: 100%;">
+            <h2>Create New Exam & Add Questions</h2>
+            <form method="POST">
+                <div class="form-group"><label>Exam Title</label><input type="text" name="title" required placeholder="e.g. Cyber Security Mid-Term"></div>
+                <div class="form-group"><label>Branch</label><input type="text" name="branch" required placeholder="e.g. Computer Engineering"></div>
+                <div class="form-group"><label>Year</label><input type="text" name="year" required placeholder="e.g. 2nd Year"></div>
+                <div class="form-group"><label>Start Time</label><input type="datetime-local" name="start_time" required></div>
+                <div class="form-group"><label>End Time</label><input type="datetime-local" name="end_time" required></div>
+                <div class="form-group"><label>Duration (Minutes)</label><input type="number" name="duration_minutes" required value="30"></div>
+                
+                <hr style="margin:30px 0;">
+                <h3>Exam Questions</h3>
+                <div id="questions-container">
+                    <div class="question-block">
+                        <h4>Question 1</h4>
+                        <div class="form-group"><label>Question Text</label><textarea name="question_text[]" rows="2" required></textarea></div>
+                        <div class="form-group"><label>Option A</label><input type="text" name="opt_a[]" required></div>
+                        <div class="form-group"><label>Option B</label><input type="text" name="opt_b[]" required></div>
+                        <div class="form-group"><label>Option C</label><input type="text" name="opt_c[]" required></div>
+                        <div class="form-group"><label>Option D</label><input type="text" name="opt_d[]" required></div>
+                        <div class="form-group"><label>Correct Option (A, B, C, or D)</label><input type="text" name="correct[]" maxlength="1" required placeholder="A"></div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-secondary" onclick="addQuestion()" style="margin-bottom: 20px;">+ Add Another Question</button>
+                <button type="submit" class="btn btn-primary btn-block">Publish Exam & Generate Link</button>
+            </form>
+            <br><a href="/admin/exams" class="btn btn-secondary btn-block">Back to Exams List</a>
+        </div>
+    </div>
+
+    <script>
+        let questionCount = 1;
+        function addQuestion() {
+            questionCount++;
+            const container = document.getElementById('questions-container');
+            const div = document.createElement('div');
+            div.className = 'question-block';
+            div.innerHTML = `
+                <h4>Question ${questionCount}</h4>
+                <div class="form-group"><label>Question Text</label><textarea name="question_text[]" rows="2" required></textarea></div>
+                <div class="form-group"><label>Option A</label><input type="text" name="opt_a[]" required></div>
+                <div class="form-group"><label>Option B</label><input type="text" name="opt_b[]" required></div>
+                <div class="form-group"><label>Option C</label><input type="text" name="opt_c[]" required></div>
+                <div class="form-group"><label>Option D</label><input type="text" name="opt_d[]" required></div>
+                <div class="form-group"><label>Correct Option (A, B, C, or D)</label><input type="text" name="correct[]" maxlength="1" required placeholder="A"></div>
+            `;
+            container.appendChild(div);
+        }
+    </script>
+</body>
+</html>

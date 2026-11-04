@@ -1,0 +1,6 @@
+Flask
+PyMySQL
+pcrypt
+requests
+python-dotenv
+werkzeug

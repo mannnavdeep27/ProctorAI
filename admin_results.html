@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Results - ProctorAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <h2>Student Exam Results</h2>
+        <a href="/admin/dashboard" class="btn btn-secondary">Dashboard</a>
+    </nav>
+    <div class="container main-content">
+        <table style="width:100%; border-collapse: collapse; background:white; border-radius:8px; overflow:hidden;">
+            <tr style="background:#F3F4F6; text-align:left;"><th style="padding:12px;">Student Name</th><th>Roll No</th><th>Branch</th><th>Exam Title</th><th>Score</th><th>Status</th></tr>
+            {% for r in results %}
+                <tr style="border-bottom:1px solid #E5E7EB;">
+                    <td style="padding:12px;">{{ r.name }}</td>
+                    <td>{{ r.roll_no }}</td>
+                    <td>{{ r.branch }}</td>
+                    <td>{{ r.title }}</td>
+                    <td><b>{{ r.score }} / {{ r.total_questions }}</b></td>
+                    <td>{{ r.status }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
